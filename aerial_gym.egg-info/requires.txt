@@ -1,0 +1,5 @@
+isaacgym
+matplotlib
+numpy
+pytorch3d
+torch

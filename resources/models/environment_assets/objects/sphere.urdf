@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<robot name="sphere">
+  <link name="sphere">
+    <inertial>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 -0.0 0.0"/>
+      <mass value="1.0"/>
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+    </inertial>
+    <visual name="sphere_visual">
+      <geometry>
+        <sphere radius="0.5"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </visual>
+    <collision name="sphere_collision">
+      <geometry>
+        <sphere radius="0.5"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+    </collision>
+  </link>
+  
+  <!-- New link: Extremely small cube inside the sphere -->
+  <link name="inner_cube">
+    <inertial>
+      <origin xyz="0.0 0.0 0.0" rpy="0.0 -0.0 0.0"/>
+      <mass value="0.001"/> <!-- Adjust the mass as needed -->
+      <inertia ixx="0.00001" ixy="0.0" ixz="0.0" iyy="0.00001" iyz="0.0" izz="0.00001"/> <!-- Adjust the inertial values as needed -->
+    </inertial>
+    <visual name="inner_cube_visual">
+      <geometry>
+        <box size="0.01 0.01 0.01"/> <!-- Extremely small cube: 0.01m x 0.01m x 0.01m -->
+      </geometry>
+      <origin xyz="0.25 0.25 0.25" rpy="0 0 0"/> <!-- Adjust the position (xyz) to place it inside the sphere -->
+    </visual>
+    <collision name="inner_cube_collision">
+      <geometry>
+        <box size="0.01 0.01 0.01"/> <!-- Same dimensions for collision geometry -->
+      </geometry>
+      <origin xyz="0.25 0.25 0.25" rpy="0 0 0"/>
+    </collision>
+  </link>
+  
+  <!-- Fixed joint to attach the inner cube to the sphere -->
+  <joint name="fixed_joint" type="fixed">
+    <parent link="sphere"/>
+    <child link="inner_cube"/>
+    <origin xyz="0.0 0.0 0.0" rpy="0 0 0"/> <!-- No offset for the joint -->
+  </joint>
+</robot>
